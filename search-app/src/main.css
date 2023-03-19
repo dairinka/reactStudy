@@ -139,6 +139,7 @@ body {
   filter: drop-shadow(1px 2px 2px gray);
   transition: all 150ms ease-in-out;
   outline: none;
+  cursor: pointer;
 }
 
 .search-btn:hover {
@@ -161,4 +162,34 @@ body {
 }
 .error-block {
   text-align: center;
+}
+.header {
+  height: 30px;
+  border-bottom: 1px solid #808080;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 20px;
+  padding: 0 10px;
+}
+.header-link {
+  text-decoration: none;
+}
+.header-link.active {
+  font-weight: bold;
+}
+.location {
+  flex-grow: 1;
+  text-align: right;
+  margin: 0;
+  color: #808080;
+}
+.location .header-link {
+  display: none;
+}
+.location .header-link.active {
+  display: inline-block;
+  color: #808080;
+  font-weight: normal;
+  padding: 0 3px;
+  text-transform: uppercase;
 }
