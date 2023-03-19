@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { ApartmentData } from '../types/type';
-import TableCards from './tableCards';
-import Search from './search';
+import TableCards from '../components/tableCards';
+import Search from '../components/search';
 import cardData from '../data/data';
 
 type CardState = { query: string };
