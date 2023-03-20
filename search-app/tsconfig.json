@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "lib": ["dom", "esnext", "dom.iterable"],
-    "jsx": "react",
+    "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -13,7 +13,8 @@
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types":["vitest/globals"]
   },
-  "include": ["./src/**/*", "styled.d.ts"]
+  "include": ["./src/**/*", "styled.d.ts", "**/*.tsx"]
 }
