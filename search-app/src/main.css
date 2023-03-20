@@ -172,7 +172,7 @@ body {
   padding: 0 10px;
 }
 .header-link {
-  text-decoration: none;
+  text-decoration: none;text-decoration: none;
 }
 .header-link.active {
   font-weight: bold;
@@ -183,10 +183,11 @@ body {
   margin: 0;
   color: #808080;
 }
-.location .header-link {
+.location a {
   display: none;
+  text-decoration: none;
 }
-.location .header-link.active {
+.location a.active {
   display: inline-block;
   color: #808080;
   font-weight: normal;

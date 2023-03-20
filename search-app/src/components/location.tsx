@@ -6,12 +6,8 @@ export default class Location extends React.Component {
     return (
       <div className="location">
         Now you are on
-        <NavLink to={'/'} className="header-link">
-          Search Apartment
-        </NavLink>
-        <NavLink to={'/about_us'} className="header-link">
-          About Us
-        </NavLink>
+        <NavLink to={'/'}>SEARCH APARTMENT</NavLink>
+        <NavLink to={'/about_us'}>ABOUT US</NavLink>
         page
       </div>
     );

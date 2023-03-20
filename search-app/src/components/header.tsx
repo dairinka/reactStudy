@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import Location from './location';
+
 export default class Header extends React.Component {
   public render() {
     return (
