@@ -19,8 +19,12 @@ export default class Search extends Component<ISearchProps, searchState> {
   clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     this.props.changeList(this.state.value);
-    localStorage.setItem(LocalStoradgeType.querySearch, JSON.stringify(this.state.value));
   };
+
+  componentWillUnmount(): void {
+    localStorage.setItem(LocalStoradgeType.querySearch, JSON.stringify(this.state.value));
+  }
+
   public render() {
     return (
       <form className="search-bar">
