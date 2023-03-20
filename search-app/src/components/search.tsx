@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { LocalStoradgeType } from '../types/type';
 
 export interface ISearchProps {
   changeList: (str: string) => void;
@@ -9,7 +10,7 @@ export default class Search extends Component<ISearchProps, searchState> {
   constructor(props: ISearchProps) {
     super(props);
     this.state = {
-      value: '',
+      value: JSON.parse(localStorage.getItem(LocalStoradgeType.querySearch) as string) || '',
     };
   }
   changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,6 +19,7 @@ export default class Search extends Component<ISearchProps, searchState> {
   clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     this.props.changeList(this.state.value);
+    localStorage.setItem(LocalStoradgeType.querySearch, JSON.stringify(this.state.value));
   };
   public render() {
     return (

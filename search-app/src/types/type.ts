@@ -8,3 +8,7 @@ export interface ApartmentData {
   comfortable: string[];
   language: string[];
 }
+
+export enum LocalStoradgeType {
+  querySearch = 'querySerch',
+}
