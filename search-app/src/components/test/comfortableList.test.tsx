@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import ComfortableList from './comfortableList';
+import ComfortableList from '../comfortableList';
 
 describe('ComfortableList in a page', () => {
   const someList: string[] = [

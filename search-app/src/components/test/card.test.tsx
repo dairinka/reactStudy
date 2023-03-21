@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import Card from './card';
+import Card from '../card';
 import { ApartmentData } from 'types/type';
 
 describe('Card in a page', () => {
