@@ -4,7 +4,6 @@ import { ApartmentData } from '../types/type';
 import TableCards from '../components/tableCards';
 import Search from '../components/search';
 import cardData from '../data/data';
-import Header from '../components/header';
 
 type CardState = { query: string };
 
@@ -34,7 +33,6 @@ export default class MainPage extends React.Component<object, CardState> {
   render() {
     return (
       <>
-        <Header />
         <Search changeList={this.handleChangeList} />
         <TableCards data={this.searchApartment(cardData)} />
       </>

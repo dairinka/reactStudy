@@ -1,25 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+// import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './main.css';
-import MainPage from './routes/mainPage';
-import AboutPage from './routes/aboutPage';
-import ErrorPage from './routes/error-page';
+// import MainPage from './routes/mainPage';
+// import AboutPage from './routes/aboutPage';
+// import ErrorPage from './routes/error-page';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <MainPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: '/about_us',
-    element: <AboutPage />,
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <MainPage />,
+//     errorElement: <ErrorPage />,
+//   },
+//   {
+//     path: '/about_us',
+//     element: <AboutPage />,
+//   },
+// ]);
+
+// ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+//   <React.StrictMode>
+//     <RouterProvider router={router} />
+//   </React.StrictMode>
+// );
+import { BrowserRouter } from 'react-router-dom';
+import App from './app';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
