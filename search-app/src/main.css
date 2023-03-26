@@ -342,3 +342,16 @@ body {
 .upload-block {
   margin-bottom: 30px;
 }
+.modal-message {
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 10%;
+  width: 300px;
+  padding: 10px;
+  background-color: #f7f76c;
+  border: 1px solid #4e4e4e;
+  border-radius: 5px;
+  text-align: center;
+}

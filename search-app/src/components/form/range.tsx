@@ -29,8 +29,9 @@ export default class Range extends React.Component<IRangeProps> {
             min={min}
             max={max}
             id="range-price"
-            step="0.5"
+            step="1"
             ref={this.props.refer}
+            defaultValue={max}
           />
         </div>
       </div>

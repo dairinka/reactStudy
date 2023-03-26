@@ -9,7 +9,7 @@ export default class RadioButton extends React.Component<RadioBtnProps> {
       <fieldset className="fieldset">
         <legend className="fieldset-legend">Please select you will travel:</legend>
         <div ref={this.props.refer} className="radio-block">
-          <input type="radio" id="state1" name="state" value="sigle" defaultChecked />
+          <input type="radio" id="state1" name="state" value="sigle" />
           <label htmlFor="state1">Single</label>
 
           <input type="radio" id="state2" name="state" value="family" />

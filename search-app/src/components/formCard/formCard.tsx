@@ -38,7 +38,7 @@ export default class FormCard extends React.Component<IFormCardProps> {
           {this.props.data.pets ? 'yes' : 'no'}
         </p>
         <div className="user-passport">
-          <p className="first-word card-line">User passport:</p>
+          <p className="first-word card-line">Passport:</p>
           {this.props.data.file ? (
             <img src={URL.createObjectURL(this.props.data.file)} style={{ height: 200 }} />
           ) : null}
