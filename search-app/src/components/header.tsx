@@ -1,10 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { PagePathData } from 'types/type';
 import Location from './location';
 
+interface IHeaderProps {
+  pathArray: PagePathData[];
+}
 type pageState = { pageName: string };
-export default class Header extends React.Component<object, pageState> {
-  constructor(props: object) {
+export default class Header extends React.Component<IHeaderProps, pageState> {
+  constructor(props: IHeaderProps) {
     super(props);
     this.state = {
       pageName: this.defineLocation(),
@@ -12,9 +16,8 @@ export default class Header extends React.Component<object, pageState> {
   }
 
   defineLocation = (): string => {
-    console.log('location path: ', window.location.pathname);
     return window.location.pathname === '/'
-      ? 'HOME'
+      ? this.props.pathArray[0].pageName.toUpperCase()
       : window.location.pathname.slice(1).toUpperCase().replace(/_/, ' ');
   };
 
@@ -26,15 +29,18 @@ export default class Header extends React.Component<object, pageState> {
   public render() {
     return (
       <header className="header">
-        <NavLink to="/" className="header-link" onClick={() => this.changePage('home')}>
-          Home
-        </NavLink>
-        <NavLink to="/form" className="header-link" onClick={() => this.changePage('form')}>
-          Form
-        </NavLink>
-        <NavLink to="/about_us" className="header-link" onClick={() => this.changePage('about us')}>
-          About Us
-        </NavLink>
+        {this.props.pathArray.map(({ pageName, pagePath, id }) => {
+          return (
+            <NavLink
+              to={pagePath}
+              key={id}
+              className="header-link"
+              onClick={() => this.changePage(pageName)}
+            >
+              {pageName}
+            </NavLink>
+          );
+        })}
         <Location currentPage={this.state.pageName} />
       </header>
     );

@@ -5,12 +5,13 @@ import MainPage from './routes/mainPage';
 import FormPage from './routes/formPage';
 import AboutPage from './routes/aboutPage';
 import ErrorPage from './routes/error-page';
+import { PathData } from './data/pathData';
 
 class App extends React.Component {
   render() {
     return (
       <>
-        <Header />
+        <Header pathArray={PathData} />
         <Routes>
           <Route>
             <Route path="/" element={<MainPage />} />

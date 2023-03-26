@@ -194,3 +194,151 @@ body {
   padding: 0 3px;
   text-transform: uppercase;
 }
+
+.form-description {
+  font-weight: 600;
+  color:#808080;
+  text-align: center;
+  font-size: 18px;
+}
+
+.form {
+  min-width: 250px;
+  max-width: 500px;
+  width: 70%; 
+  margin: 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 0 30px 30px;
+  border-radius: 5px;
+  background: #ffffff;
+}
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  margin-top: 30px;
+  font-weight: 600;
+}
+.form-input,
+.select {
+  border: 1px solid #808080;
+  height: 35px;
+  border-radius: 5px;
+  flex-grow: 1;
+  padding:0 15px;
+  background-color:#e8f0fe;
+  outline:none;
+}
+
+.form-input:active,
+.select:active {
+  outline: none;
+}
+
+
+.form-block {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* border-bottom: 1px solid #cccccc; */
+  /* padding-bottom: 20px; */
+}
+.form-input[type="checkbox"] {
+  /* height: 15px;
+  flex-basis: content;
+  position: absolute; */
+  margin: 0;
+}
+.range-price {
+  padding-bottom: 8px;
+}
+.range-price__block {
+  display: flex;
+  position: relative;
+}
+
+.input-range {
+  flex-grow: 1;
+  margin-top: 10px;
+  padding: 0;
+}
+
+.range-price__amount {
+  position: absolute;
+  top: 0
+}
+
+.min-price {
+  left: 0;
+}
+
+.max-price {
+  right: 0;
+}
+.form-btn {
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #f7f76a;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(1px 2px 2px gray);
+  transition: all 150ms ease-in-out;
+  outline: none;
+  font-size: 16px;
+}
+
+.form-btn:hover {
+  background: #e6e632;
+}
+.form-btn:active {
+  filter: none;
+}
+.form-card-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.form-card {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  padding: 20px;
+  background: #cacaca;
+  border-radius: 5px;
+  color: #4e4e4e;
+}
+.first-word {
+  font-weight: 600;
+}
+.form-card-desc {
+  text-align: center;
+  font-size: 18px;
+  color: #4e4e4e;
+  font-weight: 600;
+  margin-top: 50px;
+}
+.card-line {
+  margin: 0 0 10px;
+}
+.fieldset {
+ border: none;
+ padding: 0;
+ margin-top: 15px;
+}
+.fieldset-legend {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  margin-top: 30px;
+  font-weight: 600;
+  padding-left: 0;
+}
+.radio-block label {
+  margin-right: 15px;
+}
+
+.upload-block {
+  margin-bottom: 30px;
+}

@@ -11,7 +11,7 @@ export default class TableCards extends Component<ITableCards> {
     return (
       <>
         <div className="search-result">
-          <p>
+          <p id="amount-result">
             {this.props.data.length
               ? `Found ${this.props.data.length} apartments`
               : 'Not found. Try another query'}
