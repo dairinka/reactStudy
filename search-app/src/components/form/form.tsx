@@ -36,8 +36,12 @@ export default class Form extends React.Component<IFormProps, formState> {
 
   submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
+    const state = [...(this.stateRef.current?.childNodes as NodeListOf<HTMLInputElement>)].filter(
+      (el) => el.checked === true
+    );
+    const choseState = state[0].value;
     const newData: FormCardData = {
-      state: this.stateRef.current?.className as StateType,
+      state: choseState as StateType,
       city: this.cityRef.current?.value as string,
       name: this.nameRef.current?.value as string,
       email: this.emailRef.current?.value as string,
@@ -49,7 +53,6 @@ export default class Form extends React.Component<IFormProps, formState> {
     await this.setState({ formData: newData });
     this.arrayFormData = [...this.arrayFormData, this.state.formData];
     this.props.showCard(this.arrayFormData);
-    console.log('pets', newData.pets);
   };
 
   public render() {
