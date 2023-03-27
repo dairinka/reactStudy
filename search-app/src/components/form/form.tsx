@@ -72,11 +72,17 @@ export default class Form extends React.Component<IFormProps, formState> {
   };
 
   formValidate = async (data: FormCardData) => {
-    console.log('data.city', data.city);
+    const correctName = data.name ? data.name.charAt(0).toUpperCase() + data.name.slice(1) : null;
     const errObj: IErrorState = {};
     if (!data.city) errObj.city = true;
     if (!data.state) errObj.radio = true;
-    if (!data.name || data.name.length < 3 || typeof data.name !== 'string') errObj.name = true;
+    if (
+      !data.name ||
+      data.name.length < 3 ||
+      typeof data.name !== 'string' ||
+      data.name !== correctName
+    )
+      errObj.name = true;
     if (!data.email) errObj.email = true;
     if (!data.file) errObj.file = true;
     if (Object.keys(errObj).length > 0) {
