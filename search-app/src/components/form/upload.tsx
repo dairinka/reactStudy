@@ -8,7 +8,7 @@ export default class Upload extends React.Component<UploadProps> {
   public render() {
     return (
       <div className="upload-block">
-        <label htmlFor="ipload-img" className="input-label form-label">
+        <label htmlFor="upload-img" className="input-label form-label">
           Upload your passport
         </label>
         <input
@@ -16,7 +16,7 @@ export default class Upload extends React.Component<UploadProps> {
           multiple
           accept="image/*"
           onChange={this.onImageChange}
-          id="ipload-img"
+          id="upload-img"
           ref={this.props.refer}
         />
       </div>
