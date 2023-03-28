@@ -7,8 +7,8 @@ import { ApartmentDataKey, ApartmentData, FormCardData } from '../../types/type'
 import { StateType } from '../../types/type';
 import Button from './button';
 import Upload from './upload';
-import ModalMessage from './modal/modalMessage';
-import ErrorFormMessage from './errorMessage/errorFormMessage';
+import ModalMessage from './message/modalMessage';
+import ErrorFormMessage from './message/errorFormMessage';
 
 export interface IFormProps {
   data: ApartmentData[];
