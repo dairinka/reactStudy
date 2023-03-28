@@ -58,7 +58,7 @@ export default class Form extends React.Component<IFormProps, formState> {
       maxPrice: this.priceRef.current?.value as string,
       pets: this.petRef.current?.checked as boolean,
       startDate: this.dateRef.current?.value as string,
-      file: this.fileRef.current?.files ? (this.fileRef.current.files[0] as File) : null,
+      file: (this.fileRef.current?.files as FileList)[0] as File,
     };
     this.formValidate(newData);
   };

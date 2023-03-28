@@ -71,4 +71,65 @@ describe('Form in a page', () => {
     await user.click(submitBtn);
     expect(screen.getByText(/Thank you. Card was created/));
   });
+
+  test('check error messages', async () => {
+    const user = userEvent.setup();
+    const submitBtn = document.querySelector('.form-btn') as HTMLButtonElement;
+
+    await user.click(submitBtn);
+    const errorMessageEls = document.querySelectorAll('.error-message') as NodeListOf<HTMLElement>;
+    expect(errorMessageEls.length).toBe(5);
+  });
+
+  test('check correct error message', async () => {
+    const user = userEvent.setup();
+    const citySelect = document.getElementById('city-select') as HTMLSelectElement;
+    const stateRadio = document.getElementById('state1') as HTMLInputElement;
+    const nameInput = document.getElementById('user-name') as HTMLInputElement;
+    const emailInput = document.getElementById('user-email') as HTMLInputElement;
+    const upload = document.getElementById('upload-img') as HTMLInputElement;
+    const file = new File(['hello'], 'hello.png', { type: 'image/png' });
+    const submitBtn = document.querySelector('.form-btn') as HTMLButtonElement;
+
+    await user.selectOptions(citySelect, 'London');
+    expect(screen.getByText(/London/)).toBeInTheDocument();
+
+    await user.click(stateRadio);
+    expect(screen.getByText(/Single/)).toBeInTheDocument();
+
+    await user.type(nameInput, 'ny');
+    expect(nameInput).toHaveValue('ny');
+
+    await user.type(emailInput, 'test@gmail.com');
+    expect(screen.getByText(/Your email/)).toBeInTheDocument();
+
+    await user.upload(upload, file);
+    expect(screen.getByText(/Upload/)).toBeInTheDocument();
+
+    await user.click(submitBtn);
+    const errorNameMessageEl = document.querySelector('.error-message') as HTMLElement;
+    expect(errorNameMessageEl).toBeInTheDocument();
+    expect(errorNameMessageEl).toHaveTextContent('please write correct name');
+  });
+
+  test('check file', async () => {
+    const user = userEvent.setup();
+    const citySelect = document.getElementById('city-select') as HTMLSelectElement;
+    const stateRadio = document.getElementById('state1') as HTMLInputElement;
+    const nameInput = document.getElementById('user-name') as HTMLInputElement;
+    const emailInput = document.getElementById('user-email') as HTMLInputElement;
+    const submitBtn = document.querySelector('.form-btn') as HTMLButtonElement;
+
+    await user.selectOptions(citySelect, 'London');
+
+    await user.click(stateRadio);
+
+    await user.type(nameInput, 'Sony');
+
+    await user.type(emailInput, 'test@gmail.com');
+
+    await user.click(submitBtn);
+    const errorFileMessageEl = document.querySelector('.error-message') as HTMLElement;
+    expect(errorFileMessageEl).toHaveTextContent('please upload file');
+  });
 });
