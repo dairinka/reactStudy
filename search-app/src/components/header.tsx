@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { PagePathData } from 'types/type';
 import Location from './location';
@@ -6,43 +6,38 @@ import Location from './location';
 interface IHeaderProps {
   pathArray: PagePathData[];
 }
-type pageState = { pageName: string };
-export default class Header extends React.Component<IHeaderProps, pageState> {
-  constructor(props: IHeaderProps) {
-    super(props);
-    this.state = {
-      pageName: this.defineLocation(),
-    };
-  }
 
-  defineLocation = (): string => {
+const Header: FC<IHeaderProps> = ({ pathArray }) => {
+  const defineLocation = (): string => {
     return window.location.pathname === '/'
-      ? this.props.pathArray[0].pageName.toUpperCase()
+      ? pathArray[0].pageName.toUpperCase()
       : window.location.pathname.slice(1).toUpperCase().replace(/_/, ' ');
   };
 
-  changePage = (currentPageName: string) => {
+  const [pageName, setPageName] = useState(defineLocation());
+
+  const changePage = (currentPageName: string) => {
     const pageNameUpperCase = currentPageName.toUpperCase();
-    this.setState({ pageName: pageNameUpperCase });
+    setPageName(pageNameUpperCase);
   };
 
-  public render() {
-    return (
-      <header className="header">
-        {this.props.pathArray.map(({ pageName, pagePath, id }) => {
-          return (
-            <NavLink
-              to={pagePath}
-              key={id}
-              className="header-link"
-              onClick={() => this.changePage(pageName)}
-            >
-              {pageName}
-            </NavLink>
-          );
-        })}
-        <Location currentPage={this.state.pageName} />
-      </header>
-    );
-  }
-}
+  return (
+    <header className="header">
+      {pathArray.map(({ pageName, pagePath, id }) => {
+        return (
+          <NavLink
+            to={pagePath}
+            key={id}
+            className="header-link"
+            onClick={() => changePage(pageName)}
+          >
+            {pageName}
+          </NavLink>
+        );
+      })}
+      <Location currentPage={pageName} />
+    </header>
+  );
+};
+
+export default Header;

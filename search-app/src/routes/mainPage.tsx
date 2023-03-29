@@ -1,41 +1,33 @@
-import React from 'react';
+import { FC, useState } from 'react';
 
 import { ApartmentData } from '../types/type';
 import TableCards from '../components/tableCards';
 import Search from '../components/search';
 import cardData from '../data/data';
 
-type CardState = { query: string };
-
-export default class MainPage extends React.Component<object, CardState> {
-  constructor(props: React.ReactPropTypes) {
-    super(props);
-    this.state = {
-      query: '',
-    };
-  }
-
-  handleChangeList = (str: string): void => {
+const MainPage: FC = () => {
+  const [query, setQuery] = useState('');
+  const handleChangeList = (str: string): void => {
     const strNormalize = str.toLowerCase().trim();
-    this.setState({ query: strNormalize });
+    setQuery(strNormalize);
   };
 
-  searchApartment = (data: ApartmentData[]): ApartmentData[] => {
+  const searchApartment = (data: ApartmentData[]): ApartmentData[] => {
     return data.filter(
       (el: ApartmentData) =>
-        el.name.toLowerCase().includes(this.state.query) ||
-        el.city.toLowerCase().includes(this.state.query) ||
-        el.language.join(' ').toLowerCase().includes(this.state.query) ||
-        el.comfortable.join(' ').toLowerCase().includes(this.state.query)
+        el.name.toLowerCase().includes(query) ||
+        el.city.toLowerCase().includes(query) ||
+        el.language.join(' ').toLowerCase().includes(query) ||
+        el.comfortable.join(' ').toLowerCase().includes(query)
     );
   };
 
-  render() {
-    return (
-      <>
-        <Search changeList={this.handleChangeList} />
-        <TableCards data={this.searchApartment(cardData)} />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Search changeList={handleChangeList} />
+      <TableCards data={searchApartment(cardData)} />
+    </>
+  );
+};
+
+export default MainPage;

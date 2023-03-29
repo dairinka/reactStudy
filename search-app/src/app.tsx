@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/header';
 import MainPage from './routes/mainPage';
@@ -7,22 +7,20 @@ import AboutPage from './routes/aboutPage';
 import ErrorPage from './routes/error-page';
 import { PathData } from './data/pathData';
 
-class App extends React.Component {
-  render() {
-    return (
-      <>
-        <Header pathArray={PathData} />
-        <Routes>
-          <Route>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/form" element={<FormPage />} />
-            <Route path="/about_us" element={<AboutPage />} />
-            <Route path="*" element={<ErrorPage />} />
-          </Route>
-        </Routes>
-      </>
-    );
-  }
-}
+const App: FC = () => {
+  return (
+    <>
+      <Header pathArray={PathData} />
+      <Routes>
+        <Route>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/form" element={<FormPage />} />
+          <Route path="/about_us" element={<AboutPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
+      </Routes>
+    </>
+  );
+};
 
 export default App;

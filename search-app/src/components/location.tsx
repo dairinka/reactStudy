@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 
 interface ILocationProp {
   currentPage: string;
 }
-export default class Location extends React.Component<ILocationProp> {
-  public render() {
-    return <div className="location">You are on {this.props.currentPage} page</div>;
-  }
-}
+const Location: FC<ILocationProp> = ({ currentPage }) => {
+  return <div className="location">You are on {currentPage} page</div>;
+};
+
+export default Location;
