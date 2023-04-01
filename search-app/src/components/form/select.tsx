@@ -1,29 +1,35 @@
-import * as React from 'react';
+import { FC } from 'react';
+import { UseFormRegisterReturn, Path, FieldErrors } from 'react-hook-form';
+import { FormFields } from './form';
+import ErrorFormMessage from './message/errorFormMessage';
 
-export interface ISelectProps {
-  refer: React.RefObject<HTMLSelectElement>;
+export type SelectProps = {
   cityArray: string[];
-}
+  name: Path<FormFields>;
+  errors: FieldErrors<FormFields>;
+  register: UseFormRegisterReturn<'city'>;
+};
 
-export default class Select extends React.Component<ISelectProps> {
-  public render() {
-    return (
-      <div className="select-block form-block">
-        <label htmlFor="city-select" className="select-label form-label">
-          Choose city
-        </label>
-        <select name="city" id="city-select" className="select" ref={this.props.refer}>
-          <option value="">--Please choose the option--</option>
+const Select: FC<SelectProps> = ({ cityArray, errors, register }) => {
+  return (
+    <div className="select-block form-block">
+      <label htmlFor="city-select" className="select-label form-label">
+        Choose city
+      </label>
+      <select id="city-select" className="select" {...register}>
+        <option value="">--Please choose the option--</option>
 
-          {this.props.cityArray.map((city) => (
-            <option key={JSON.parse(city)} value={JSON.parse(city)}>
-              {JSON.parse(city)}
-            </option>
-          ))}
+        {cityArray.map((city) => (
+          <option key={JSON.parse(city)} value={JSON.parse(city)}>
+            {JSON.parse(city)}
+          </option>
+        ))}
 
-          <option value="all">All city</option>
-        </select>
-      </div>
-    );
-  }
-}
+        <option value="all">All city</option>
+      </select>
+      {errors.city && <ErrorFormMessage message={errors.city.message as string} />}
+    </div>
+  );
+};
+
+export default Select;

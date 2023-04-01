@@ -1,15 +1,10 @@
-import * as React from 'react';
+import { FC } from 'react';
 
 export interface IErrorFormMessageProps {
   message: string;
-  showError: boolean;
 }
 
-export default class ErrorFormMessage extends React.Component<IErrorFormMessageProps> {
-  public render() {
-    if (!this.props.showError) {
-      return null;
-    }
-    return <p className="error-message">{this.props.message}</p>;
-  }
-}
+const ErrorFormMessage: FC<IErrorFormMessageProps> = ({ message }) => {
+  return <p className="error-message">{message}</p>;
+};
+export default ErrorFormMessage;

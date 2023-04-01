@@ -6,8 +6,8 @@ import FormCardsBlock from '../components/formCard/formCardsBlock';
 
 const FormPage: FC = () => {
   const [arrayCards, setArrayCards] = useState<FormCardData[]>([]);
-  const handleFormCardData = async (newArray: FormCardData[]) => {
-    await setArrayCards([...newArray]);
+  const handleFormCardData = (newArray: FormCardData) => {
+    setArrayCards((prev) => [...prev, newArray]);
   };
 
   return (
@@ -15,7 +15,7 @@ const FormPage: FC = () => {
       <p className="form-description">
         Fill the form below for recieve information about free apartment
       </p>
-      <Form data={cardData} showCard={handleFormCardData} />
+      <Form dataList={cardData} showCard={handleFormCardData} />
       {arrayCards.length ? <FormCardsBlock data={arrayCards} /> : null}
     </div>
   );

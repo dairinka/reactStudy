@@ -1,35 +1,48 @@
-import * as React from 'react';
+import { FC } from 'react';
+import { UseFormRegister, Path, FieldErrors } from 'react-hook-form';
+import { FormFields } from './form';
+import ErrorFormMessage from './message/errorFormMessage';
 
 export type InputType = 'text' | 'email' | 'password' | 'checkbox' | 'date';
 
 export interface IInputProps {
   type: InputType;
+  labelName: string;
   placeholder?: string;
-  inputName: string;
-  refer?: React.RefObject<HTMLInputElement>;
   default?: string;
+  name: Path<FormFields>;
+  errors: FieldErrors<FormFields>;
+  register: UseFormRegister<FormFields>;
+  rules?: {
+    required: boolean;
+    errorMessage?: string;
+  };
 }
 
-export default class Input extends React.Component<IInputProps> {
-  public render() {
-    return (
-      <div className="form-block">
-        <label
-          htmlFor={'user-' + this.props.inputName.split(' ')[1]}
-          className="input-label form-label"
-        >
-          {this.props.inputName}
-        </label>
-        <input
-          type={this.props.type}
-          id={'user-' + this.props.inputName.split(' ')[1]}
-          placeholder={this.props.placeholder}
-          className="input-text form-input"
-          name={this.props.type}
-          ref={this.props.refer}
-          defaultValue={this.props.default}
-        />
-      </div>
-    );
-  }
-}
+const Input: FC<IInputProps> = ({
+  name,
+  type,
+  labelName,
+  placeholder,
+  errors,
+  register,
+  rules,
+}) => {
+  return (
+    <div className="form-block">
+      <label htmlFor={'user-' + labelName.split(' ')[1]} className="input-label form-label">
+        {labelName}
+      </label>
+      <input
+        type={type}
+        id={'user-' + labelName.split(' ')[1]}
+        placeholder={placeholder}
+        className="input-text form-input"
+        {...register(name, { required: rules?.required ? rules.errorMessage : false })}
+      />
+      {errors[name] && <ErrorFormMessage message={errors[name]?.message as string} />}
+    </div>
+  );
+};
+
+export default Input;

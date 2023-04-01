@@ -30,7 +30,7 @@ export interface FormCardData {
   city?: string;
   maxPrice?: string;
   startDate?: string;
-  file?: File;
+  file?: File | Blob;
 }
 export type StringBoolean = 'false' | 'true';
 export type StateType = 'single' | 'with family' | 'with friends' | '';

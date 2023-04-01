@@ -1,133 +1,125 @@
-import * as React from 'react';
+import { FC, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { ApartmentDataKey, ApartmentData } from '../../types/type';
+import { FormCardData, StateType } from '../../types/type';
 import Select from './select';
 import Range from './range';
 import Input from './input';
 import RadioButton from './radioButton';
-import { ApartmentDataKey, ApartmentData, FormCardData } from '../../types/type';
-import { StateType } from '../../types/type';
 import Button from './button';
 import Upload from './upload';
 import ModalMessage from './message/modalMessage';
-import ErrorFormMessage from './message/errorFormMessage';
 
 export interface IFormProps {
-  data: ApartmentData[];
-  showCard: (newData: FormCardData[]) => void;
-}
-interface IErrorState {
-  [key: string]: boolean;
+  dataList: ApartmentData[];
+  showCard: (newData: FormCardData) => void;
 }
 
-type formState = { formData: FormCardData; showMessage: boolean; showError: IErrorState };
+export type FormFields = {
+  city: string;
+  userName: string;
+  email: string;
+  state: StateType;
+  maxPrice: string;
+  pets: boolean;
+  startDate: string;
+  file: FileList;
+};
 
-export default class Form extends React.Component<IFormProps, formState> {
-  state = {
-    formData: {},
-    showMessage: false,
-    showError: { city: false, radio: false, name: false, email: false, file: false },
-  };
-  initialSetError: IErrorState = this.state.showError;
-  arrayFormData: FormCardData[] = [];
-  cityRef = React.createRef<HTMLSelectElement>();
-  priceRef = React.createRef<HTMLInputElement>();
-  dateRef = React.createRef<HTMLInputElement>();
-  petRef = React.createRef<HTMLInputElement>();
-  stateRef = React.createRef<HTMLDivElement>();
-  nameRef = React.createRef<HTMLInputElement>();
-  emailRef = React.createRef<HTMLInputElement>();
-  fileRef = React.createRef<HTMLInputElement>();
-  formRef = React.createRef<HTMLFormElement>();
+const Form: FC<IFormProps> = ({ dataList, showCard }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormFields>();
 
-  createDataArray = (data: ApartmentDataKey): string[] => {
-    const dataArray = this.props.data.map((apartment) => JSON.stringify(apartment[data]));
+  const [showMessage, setShowMessage] = useState(false);
+
+  const createDataArray = (data: ApartmentDataKey): string[] => {
+    const dataArray = dataList.map((apartment) => JSON.stringify(apartment[data]));
     const uniqueData = new Set(dataArray);
     return [...uniqueData];
   };
 
-  submitForm = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const state = [...(this.stateRef.current?.childNodes as NodeListOf<HTMLInputElement>)].filter(
-      (el) => el.checked === true
-    );
-    const choseState = state.length !== 0 ? state[0].value : '';
+  const closeMessage = (): void => {
+    setTimeout(() => setShowMessage(!showMessage), 1500);
+  };
+
+  const submitForm = async (data: FormFields) => {
+    setShowMessage(true);
+    closeMessage();
     const newData: FormCardData = {
-      city: this.cityRef.current?.value as string,
-      state: choseState as StateType,
-      name: this.nameRef.current?.value as string,
-      email: this.emailRef.current?.value as string,
-      maxPrice: this.priceRef.current?.value as string,
-      pets: this.petRef.current?.checked as boolean,
-      startDate: this.dateRef.current?.value as string,
-      file: (this.fileRef.current?.files as FileList)[0] as File,
+      city: data.city,
+      state: data.state,
+      name: data.userName,
+      email: data.email,
+      maxPrice: data.maxPrice,
+      pets: data.pets,
+      startDate: data.startDate,
+      file: data.file[0],
     };
-    this.formValidate(newData);
+    showCard(newData);
+    reset();
   };
 
-  closeMessage = (): void => {
-    setTimeout(() => this.setState({ showMessage: !this.state.showMessage }), 1500);
-  };
+  return (
+    <form className="form" onSubmit={handleSubmit(submitForm)}>
+      <Select
+        name="city"
+        cityArray={createDataArray('city')}
+        errors={errors}
+        register={register('city', { required: 'Please select the city' })}
+      />
+      <Range
+        name="maxPrice"
+        priceArray={createDataArray('price')}
+        errors={errors}
+        register={register('maxPrice')}
+      />
+      <Input
+        name="startDate"
+        type="date"
+        labelName="Start from date"
+        errors={errors}
+        register={register}
+        rules={{ required: true, errorMessage: 'Please choose the date' }}
+      />
+      <Input
+        name="pets"
+        type="checkbox"
+        labelName="With pets"
+        errors={errors}
+        register={register}
+        rules={{ required: false }}
+      />
+      <RadioButton
+        errors={errors}
+        register={register('state', { required: 'Please select option' })}
+      />
+      <Input
+        name="userName"
+        type="text"
+        placeholder="Tony"
+        labelName="Your name"
+        errors={errors}
+        register={register}
+        rules={{ required: true, errorMessage: 'Please write correct name' }}
+      />
+      <Input
+        name="email"
+        type="email"
+        placeholder="example@gmail.com"
+        labelName="Your email"
+        errors={errors}
+        register={register}
+        rules={{ required: true, errorMessage: 'Please write your email' }}
+      />
+      <Upload errors={errors} register={register('file', { required: 'Please upload the file' })} />
+      <Button type="submit" buttonName="Send me" />
+      <ModalMessage showMessage={showMessage} />
+    </form>
+  );
+};
 
-  clearForm = () => {
-    this.formRef.current?.reset();
-  };
-
-  formValidate = async (data: FormCardData) => {
-    const correctName = data.name ? data.name.charAt(0).toUpperCase() + data.name.slice(1) : null;
-    const errObj: IErrorState = {};
-    if (!data.city) errObj.city = true;
-    if (!data.state) errObj.radio = true;
-    if (
-      !data.name ||
-      data.name.length < 3 ||
-      typeof data.name !== 'string' ||
-      data.name !== correctName
-    )
-      errObj.name = true;
-    if (!data.email) errObj.email = true;
-    if (!data.file) errObj.file = true;
-    if (Object.keys(errObj).length > 0) {
-      this.setState({ showError: errObj });
-    } else {
-      await this.setState({
-        formData: data,
-        showMessage: !this.state.showMessage,
-        showError: this.initialSetError,
-      });
-      this.arrayFormData = [...this.arrayFormData, this.state.formData];
-      this.clearForm();
-      this.props.showCard(this.arrayFormData);
-      this.closeMessage();
-    }
-  };
-
-  public render() {
-    const currentDate = new Date().toLocaleDateString('en-CA');
-    return (
-      <form className="form" ref={this.formRef} onSubmit={this.submitForm}>
-        <Select refer={this.cityRef} cityArray={this.createDataArray('city')} />
-        <ErrorFormMessage message="please select option" showError={this.state.showError.city} />
-        <Range refer={this.priceRef} priceArray={this.createDataArray('price')} />
-        <Input refer={this.dateRef} type="date" inputName="Start from date" default={currentDate} />
-        <Input refer={this.petRef} type="checkbox" inputName="With pets" />
-        <RadioButton refer={this.stateRef} />
-        <ErrorFormMessage message="please select option" showError={this.state.showError.radio} />
-        <Input refer={this.nameRef} type="text" placeholder="Tony" inputName="Your name" />
-        <ErrorFormMessage
-          message="please write correct name"
-          showError={this.state.showError.name}
-        />
-        <Input
-          refer={this.emailRef}
-          type="email"
-          placeholder="example@gmail.com"
-          inputName="Your email"
-        />
-        <ErrorFormMessage message="please write email" showError={this.state.showError.email} />
-        <Upload refer={this.fileRef} />
-        <ErrorFormMessage message="please upload file" showError={this.state.showError.file} />
-        <Button type="submit" buttonName="Send me" />
-        <ModalMessage showMessage={this.state.showMessage} />
-      </form>
-    );
-  }
-}
+export default Form;

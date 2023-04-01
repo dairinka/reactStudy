@@ -1,40 +1,43 @@
-import * as React from 'react';
+import React, { FC } from 'react';
+import { UseFormRegisterReturn, Path, FieldErrors } from 'react-hook-form';
+import { FormFields } from './form';
+import ErrorFormMessage from './message/errorFormMessage';
 
 export interface IRangeProps {
   priceArray: string[];
-  refer: React.RefObject<HTMLInputElement>;
+  name: Path<FormFields>;
+  errors: FieldErrors<FormFields>;
+  register: UseFormRegisterReturn<'maxPrice'>;
 }
 
-export default class Range extends React.Component<IRangeProps> {
-  defineMinMaxPrice = (): number[] => {
-    const priceArray: number[] = this.props.priceArray
-      .map((el) => JSON.parse(el))
-      .sort((a, b) => a - b);
-    return [priceArray[0], priceArray[priceArray.length - 1]];
+const Range: FC<IRangeProps> = ({ priceArray, errors, register }) => {
+  const defineMinMaxPrice = (): number[] => {
+    const sortPriceArray: number[] = priceArray.map((el) => JSON.parse(el)).sort((a, b) => a - b);
+    return [sortPriceArray[0], sortPriceArray[sortPriceArray.length - 1]];
   };
 
-  public render() {
-    const [min, max] = this.defineMinMaxPrice();
-    return (
-      <div className="range-price  form-block">
-        <label htmlFor="range-price" className="input-label form-label">
-          Choose max price
-        </label>
-        <div className="range-price__block">
-          <span className="min-price range-price__amount">{min}</span>
-          <span className="max-price range-price__amount">{max}</span>
-          <input
-            className="input-range form-input"
-            type="range"
-            min={min}
-            max={max}
-            id="range-price"
-            step="1"
-            ref={this.props.refer}
-            defaultValue={max}
-          />
-        </div>
+  const [min, max] = defineMinMaxPrice();
+  return (
+    <div className="range-price  form-block">
+      <label htmlFor="range-price" className="input-label form-label">
+        Choose max price
+      </label>
+      <div className="range-price__block">
+        <span className="min-price range-price__amount">{min}</span>
+        <span className="max-price range-price__amount">{max}</span>
+        <input
+          className="input-range form-input"
+          type="range"
+          min={min}
+          max={max}
+          id="range-price"
+          step="1"
+          defaultValue={max}
+          {...register}
+        />
       </div>
-    );
-  }
-}
+      {errors.maxPrice && <ErrorFormMessage message={errors.maxPrice.message as string} />}
+    </div>
+  );
+};
+export default Range;

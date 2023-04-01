@@ -1,15 +1,14 @@
-import * as React from 'react';
+import { FC } from 'react';
 
 type ImodalMessageProps = { showMessage: boolean };
-export default class ModalMessage extends React.Component<ImodalMessageProps> {
-  public render() {
-    if (!this.props.showMessage) {
-      return null;
-    }
-    return (
-      <div className="modal-message">
-        <p>Thank you. Card was created</p>
-      </div>
-    );
+const ModalMessage: FC<ImodalMessageProps> = ({ showMessage }) => {
+  if (!showMessage) {
+    return null;
   }
-}
+  return (
+    <div className="modal-message">
+      <p>Thank you. Card was created</p>
+    </div>
+  );
+};
+export default ModalMessage;
