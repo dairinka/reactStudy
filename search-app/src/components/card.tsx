@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { ApartmentData } from '../types/type';
 import ComfortableList from './comfortableList';
 
