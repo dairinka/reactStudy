@@ -13,9 +13,14 @@ export interface IInputProps {
   name: Path<FormFields>;
   errors: FieldErrors<FormFields>;
   register: UseFormRegister<FormFields>;
-  rules?: {
-    required: boolean;
-    errorMessage?: string;
+  validationSchema?: IValidationSchema;
+  required: boolean;
+}
+export interface IValidationSchema {
+  required: string;
+  pattern?: {
+    value: RegExp;
+    message: string;
   };
 }
 
@@ -26,7 +31,7 @@ const Input: FC<IInputProps> = ({
   placeholder,
   errors,
   register,
-  rules,
+  validationSchema,
 }) => {
   return (
     <div className="form-block">
@@ -38,7 +43,7 @@ const Input: FC<IInputProps> = ({
         id={'user-' + labelName.split(' ')[1]}
         placeholder={placeholder}
         className="input-text form-input"
-        {...register(name, { required: rules?.required ? rules.errorMessage : false })}
+        {...register(name, validationSchema)}
       />
       {errors[name] && <ErrorFormMessage message={errors[name]?.message as string} />}
     </div>

@@ -43,7 +43,7 @@ const Form: FC<IFormProps> = ({ dataList, showCard }) => {
   };
 
   const closeMessage = (): void => {
-    setTimeout(() => setShowMessage(!showMessage), 1500);
+    setTimeout(() => setShowMessage(false), 1000);
   };
 
   const submitForm = async (data: FormFields) => {
@@ -83,7 +83,8 @@ const Form: FC<IFormProps> = ({ dataList, showCard }) => {
         labelName="Start from date"
         errors={errors}
         register={register}
-        rules={{ required: true, errorMessage: 'Please choose the date' }}
+        validationSchema={{ required: 'Please choose the date' }}
+        required={true}
       />
       <Input
         name="pets"
@@ -91,7 +92,7 @@ const Form: FC<IFormProps> = ({ dataList, showCard }) => {
         labelName="With pets"
         errors={errors}
         register={register}
-        rules={{ required: false }}
+        required={false}
       />
       <RadioButton
         errors={errors}
@@ -104,7 +105,14 @@ const Form: FC<IFormProps> = ({ dataList, showCard }) => {
         labelName="Your name"
         errors={errors}
         register={register}
-        rules={{ required: true, errorMessage: 'Please write correct name' }}
+        validationSchema={{
+          required: 'Please write name',
+          pattern: {
+            value: /[А-ЯA-Z]\w{4,}/,
+            message: 'Name must be capitalized and more than 4 letters',
+          },
+        }}
+        required={true}
       />
       <Input
         name="email"
@@ -113,7 +121,8 @@ const Form: FC<IFormProps> = ({ dataList, showCard }) => {
         labelName="Your email"
         errors={errors}
         register={register}
-        rules={{ required: true, errorMessage: 'Please write your email' }}
+        validationSchema={{ required: 'Please write your email' }}
+        required={true}
       />
       <Upload errors={errors} register={register('file', { required: 'Please upload the file' })} />
       <Button type="submit" buttonName="Send me" />
