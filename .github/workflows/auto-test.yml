@@ -3,7 +3,9 @@ name: CI-test-lint
 on:
   push:
     branches: 
-      - "modul*/**"
+      - "modul4/api"
+      - "modul5/**"
+      - "modul6/**"
 
 jobs:
   build:
