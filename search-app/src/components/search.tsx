@@ -33,7 +33,7 @@ const Search: FC<ISearchProps> = ({ changeList }) => {
         value={value}
         onChange={changeHandler}
         type="text"
-        placeholder="search apartment"
+        placeholder="search characters by name"
       />
       <button className="search-btn" onClick={clickHandler} type="submit">
         Search

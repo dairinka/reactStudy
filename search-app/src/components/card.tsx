@@ -1,24 +1,32 @@
 import { FC } from 'react';
-import { ApartmentData } from '../types/type';
-import ComfortableList from './comfortableList';
+import { IServerDataResult } from '../types/type';
 
 interface ICardProps {
-  data: ApartmentData;
+  data: IServerDataResult;
 }
+const statusIcon = { Alive: '#55cc44', Dead: '#d63d2e', unknown: '#fe8f14' };
+
 const Card: FC<ICardProps> = ({ data }) => {
   return (
     <div className="card">
       <div className="card__wrapper">
-        <p className="card__city">{data.city}</p>
-        <div className="card__img" style={{ backgroundImage: `url(${data.url})` }}>
-          <span className="card__rates">{data.rates}</span>
+        <p className="card__status">
+          <span
+            className="card__status-icon"
+            style={{ background: statusIcon[data.status] }}
+          ></span>
+          {data.status}
+        </p>
+        <div className="card__img" style={{ backgroundImage: `url(${data.image})` }}>
+          <span className="card__gender">{data.gender}</span>
         </div>
         <div className="name-wrapper">
           <p className="card__name">{data.name}</p>
-          <span className="card__price">{data.price}</span>
+          <p className="card__type">
+            {data.species}
+            {data.type ? ' - ' + data.type : ''}
+          </p>
         </div>
-        <ComfortableList comfortableList={data.comfortable} />
-        <p className="card__language">{data.language.join(', ')}</p>
       </div>
     </div>
   );
