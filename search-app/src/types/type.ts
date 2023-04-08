@@ -65,5 +65,20 @@ export interface IServerDataResult {
   image: string;
   episode: string[];
   url: string;
-  created: string[];
+  created: string;
+}
+
+export const statusIcon = { Alive: '#55cc44', Dead: '#d63d2e', unknown: '#fe8f14' };
+
+export interface IServerDataEpisode {
+  id: number;
+  name: string;
+  air_date: string;
+  episode: string;
+  characters: string[];
+}
+
+export interface IServerDataResultPlus extends IServerDataResult {
+  name_first_episode: string;
+  name_last_episode: string;
 }

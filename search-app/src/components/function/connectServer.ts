@@ -1,6 +1,6 @@
 import { IServerDataResult } from 'types/type';
 
-const connectServer = async (id = 0, query = ''): Promise<IServerDataResult[]> => {
+const connectServer = async (query = ''): Promise<IServerDataResult[] | IServerDataResult> => {
   const baseUrl = 'https://rickandmortyapi.com/api/character';
   if (query) {
     const currentUrl = `${baseUrl}/?page=1&name=${query}`;
@@ -8,8 +8,7 @@ const connectServer = async (id = 0, query = ''): Promise<IServerDataResult[]> =
     const data = await response.json();
     return data.results;
   } else {
-    console.log('without query');
-    const currentUrl = id ? `${baseUrl}/${id}` : `${baseUrl}/?page=1`;
+    const currentUrl = `${baseUrl}/?page=1`;
     const response = await fetch(currentUrl, {
       credentials: 'same-origin',
     });

@@ -4,10 +4,10 @@ import Card from './card';
 
 interface ITableCards {
   data: IServerDataResult[];
+  handleOnClick: (bool: boolean, id: number) => void;
 }
 
-const TableCards: FC<ITableCards> = ({ data }) => {
-  console.log('data in table cards ', data);
+const TableCards: FC<ITableCards> = ({ data, handleOnClick }) => {
   return (
     <>
       <div className="search-result">
@@ -16,7 +16,19 @@ const TableCards: FC<ITableCards> = ({ data }) => {
         </p>
       </div>
       <div className="content-wrapper">
-        {data && data.map((el: IServerDataResult) => <Card key={el.id} data={el} />)}
+        {data &&
+          data.map((el: IServerDataResult) => {
+            return (
+              <div
+                className="click-wrapper"
+                key={el.id}
+                onClick={() => handleOnClick(true, el.id)}
+                data-id={el.id}
+              >
+                <Card data={el} />
+              </div>
+            );
+          })}
       </div>
     </>
   );

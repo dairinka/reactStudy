@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { IServerDataResult } from '../types/type';
+import { IServerDataResult, statusIcon } from '../types/type';
 
 interface ICardProps {
   data: IServerDataResult;
+  // handleOnClick: (bool: boolean, id: number) => void;
 }
-const statusIcon = { Alive: '#55cc44', Dead: '#d63d2e', unknown: '#fe8f14' };
 
 const Card: FC<ICardProps> = ({ data }) => {
   return (
