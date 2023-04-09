@@ -33,9 +33,11 @@ const MainPage: FC = () => {
   };
 
   const handleShowModal = async (bool: boolean, id: number) => {
+    setIsPending(true);
     const fullData = await getServerDataById(id);
     serverOneCardDataRef.current = fullData;
     setShowModal(bool);
+    setIsPending(false);
   };
 
   const handleCloseModal = (bool: boolean) => {
