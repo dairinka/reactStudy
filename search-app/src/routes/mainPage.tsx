@@ -6,7 +6,7 @@ import TableCards from '../components/tableCards';
 import Search from '../components/search';
 import connectServer from '../components/function/connectServer';
 import ModalCard from '../components/modalCard';
-import getServerDataById from '../components/function/getServerDataById';
+import { getServerDataById, getFullDataById } from '../components/function/getServerDataById';
 
 const MainPage: FC = () => {
   const initialQuery = localStorage.getItem(LocalStoradgeType.querySearch)
@@ -34,7 +34,8 @@ const MainPage: FC = () => {
 
   const handleShowModal = async (bool: boolean, id: number) => {
     setIsPending(true);
-    const fullData = await getServerDataById(id);
+    const cardData = await getServerDataById(id);
+    const fullData = await getFullDataById(cardData);
     serverOneCardDataRef.current = fullData;
     setShowModal(bool);
     setIsPending(false);

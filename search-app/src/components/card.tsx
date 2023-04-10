@@ -3,7 +3,6 @@ import { IServerDataResult, statusIcon } from '../types/type';
 
 interface ICardProps {
   data: IServerDataResult;
-  // handleOnClick: (bool: boolean, id: number) => void;
 }
 
 const Card: FC<ICardProps> = ({ data }) => {

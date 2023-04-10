@@ -1,7 +1,7 @@
 import { setupServer } from 'msw/node';
-import { handler } from './handler';
+import { handlers } from './handlers';
 
-export const server = setupServer(...handler);
+export const server = setupServer(...handlers);
 beforeAll(() =>
   server.listen({
     onUnhandledRequest: 'error',

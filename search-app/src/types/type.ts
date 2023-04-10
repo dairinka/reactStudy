@@ -76,6 +76,8 @@ export interface IServerDataEpisode {
   air_date: string;
   episode: string;
   characters: string[];
+  url: string;
+  created: string;
 }
 
 export interface IServerDataResultPlus extends IServerDataResult {
