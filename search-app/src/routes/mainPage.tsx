@@ -7,30 +7,32 @@ import Search from '../components/search';
 import connectServer from '../components/function/connectServer';
 import ModalCard from '../components/modalCard';
 import { getServerDataById, getFullDataById } from '../components/function/getServerDataById';
+import { useAppSelector } from '../hook';
 
 const MainPage: FC = () => {
-  const initialQuery = localStorage.getItem(LocalStoradgeType.querySearch)
-    ? JSON.parse(localStorage.getItem(LocalStoradgeType.querySearch) as string)
-    : '';
+  const searchQuery = useAppSelector((state) => state.search.query);
+  // const initialQuery = localStorage.getItem(LocalStoradgeType.querySearch)
+  //   ? JSON.parse(localStorage.getItem(LocalStoradgeType.querySearch) as string)
+  //   : '';
   const [serverData, setServerData] = useState<IServerDataResult[]>([]);
-  const [query, setQuery] = useState(initialQuery);
+  //const [query, setQuery] = useState(initialQuery);
   const [isPending, setIsPending] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const serverOneCardDataRef = useRef<IServerDataResultPlus>();
 
   useEffect(() => {
     setIsPending(true);
-    connectServer(query).then((data) => {
+    connectServer(searchQuery).then((data) => {
       const currentData = data as IServerDataResult[];
       setServerData(currentData);
       setIsPending(false);
     });
-  }, [query]);
+  }, [searchQuery]);
 
-  const handleChangeList = async (str: string) => {
-    const strNormalize = str.toLowerCase().trim();
-    setQuery(strNormalize);
-  };
+  // const handleChangeList = async (str: string) => {
+  //   const strNormalize = str.toLowerCase().trim();
+  //   setQuery(strNormalize);
+  // };
 
   const handleShowModal = async (bool: boolean, id: number) => {
     setIsPending(true);
@@ -47,7 +49,7 @@ const MainPage: FC = () => {
 
   return (
     <>
-      <Search changeList={handleChangeList} />
+      <Search />
       {isPending && <div className="load">Progressing...</div>}
       {serverData && <TableCards data={serverData} handleOnClick={handleShowModal} />}
       {!serverData && !isPending && (
