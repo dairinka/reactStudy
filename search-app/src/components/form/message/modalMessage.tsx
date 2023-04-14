@@ -1,7 +1,8 @@
+import { useAppSelector } from '../../../hook';
 import { FC } from 'react';
 
-type ImodalMessageProps = { showMessage: boolean };
-const ModalMessage: FC<ImodalMessageProps> = ({ showMessage }) => {
+const ModalMessage: FC = () => {
+  const showMessage = useAppSelector((state) => state.form.infoMessage);
   if (!showMessage) {
     return null;
   }

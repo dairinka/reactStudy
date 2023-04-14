@@ -1,9 +1,10 @@
 import { FC } from 'react';
-import { UseFormRegisterReturn, FieldErrors } from 'react-hook-form';
-import { FormFields } from './form';
+import { UseFormRegisterReturn, FieldErrors, Path } from 'react-hook-form';
+import { FormFields } from '../../types/type';
 import ErrorFormMessage from './message/errorFormMessage';
 
 interface IUploadProps {
+  name: Path<FormFields>;
   errors: FieldErrors<FormFields>;
   register: UseFormRegisterReturn<'file'>;
 }

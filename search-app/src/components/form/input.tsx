@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { UseFormRegister, Path, FieldErrors } from 'react-hook-form';
-import { FormFields } from './form';
+import { FormFields } from '../../types/type';
 import ErrorFormMessage from './message/errorFormMessage';
 
 export type InputType = 'text' | 'email' | 'password' | 'checkbox' | 'date';

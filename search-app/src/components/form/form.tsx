@@ -1,7 +1,12 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { ApartmentDataKey, ApartmentData } from '../../types/type';
-import { FormCardData, StateType } from '../../types/type';
+import { ApartmentDataKey } from '../../types/type';
+import { FormFields } from '../../types/type';
+import { useAppDispatch } from '../../hook';
+import { addFormData } from '../../store/formSlice';
+import { showInfoMessage } from '../../store/formSlice';
+import cardData from '../../data/data';
+
 import Select from './select';
 import Range from './range';
 import Input from './input';
@@ -10,23 +15,8 @@ import Button from './button';
 import Upload from './upload';
 import ModalMessage from './message/modalMessage';
 
-export interface IFormProps {
-  dataList: ApartmentData[];
-  showCard: (newData: FormCardData) => void;
-}
-
-export type FormFields = {
-  city: string;
-  userName: string;
-  email: string;
-  state: StateType;
-  maxPrice: string;
-  pets: boolean;
-  startDate: string;
-  file: FileList;
-};
-
-const Form: FC<IFormProps> = ({ dataList, showCard }) => {
+const Form: FC = () => {
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -34,32 +24,22 @@ const Form: FC<IFormProps> = ({ dataList, showCard }) => {
     reset,
   } = useForm<FormFields>();
 
-  const [showMessage, setShowMessage] = useState(false);
-
   const createDataArray = (data: ApartmentDataKey): string[] => {
-    const dataArray = dataList.map((apartment) => JSON.stringify(apartment[data]));
+    const dataArray = cardData.map((apartment) => JSON.stringify(apartment[data]));
     const uniqueData = new Set(dataArray);
     return [...uniqueData];
   };
 
   const closeMessage = (): void => {
-    setTimeout(() => setShowMessage(false), 1000);
+    setTimeout(() => dispatch(showInfoMessage(false)), 1000);
   };
 
   const submitForm = async (data: FormFields) => {
-    setShowMessage(true);
+    const correctData = Object.assign(data, {
+      file: URL.createObjectURL((data.file as FileList)[0]),
+    }) as FormFields;
+    dispatch(addFormData(correctData));
     closeMessage();
-    const newData: FormCardData = {
-      city: data.city,
-      state: data.state,
-      name: data.userName,
-      email: data.email,
-      maxPrice: data.maxPrice,
-      pets: data.pets,
-      startDate: data.startDate,
-      file: data.file[0],
-    };
-    showCard(newData);
     reset();
   };
 
@@ -124,9 +104,13 @@ const Form: FC<IFormProps> = ({ dataList, showCard }) => {
         validationSchema={{ required: 'Please write your email' }}
         required={true}
       />
-      <Upload errors={errors} register={register('file', { required: 'Please upload the file' })} />
+      <Upload
+        name="file"
+        errors={errors}
+        register={register('file', { required: 'Please upload the file' })}
+      />
       <Button type="submit" buttonName="Send me" />
-      <ModalMessage showMessage={showMessage} />
+      <ModalMessage />
     </form>
   );
 };

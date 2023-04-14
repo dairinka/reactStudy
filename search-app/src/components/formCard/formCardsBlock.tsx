@@ -1,18 +1,16 @@
 import { FC } from 'react';
-import { FormCardData } from 'types/type';
 import FormCard from './formCard';
 import { v4 as uuidv4 } from 'uuid';
+import { useAppSelector } from '../../hook';
 
-export interface IFormCardsBlockProps {
-  data: FormCardData[];
-}
+const FormCardsBlock: FC = () => {
+  const formData = useAppSelector((state) => state.form.data);
 
-const FormCardsBlock: FC<IFormCardsBlockProps> = ({ data }) => {
   return (
     <>
-      <p className="form-card-desc">User info:</p>
+      {formData.length > 0 && <p className="form-card-desc">User info:</p>}
       <div className="form-card-wrapper">
-        {data.map((card) => (
+        {formData.map((card) => (
           <FormCard data={card} key={uuidv4()} />
         ))}
       </div>

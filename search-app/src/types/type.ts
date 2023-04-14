@@ -20,18 +20,37 @@ export interface PagePathData {
   pagePath: string;
   id: number;
 }
-
-export interface FormCardData {
-  id?: number;
-  name?: string;
-  email?: string;
-  state?: StateType;
-  pets?: boolean;
-  city?: string;
-  maxPrice?: string;
-  startDate?: string;
-  file?: File | Blob;
-}
+export type FormFields = {
+  city: string;
+  userName: string;
+  email: string;
+  state: StateType;
+  maxPrice: string;
+  pets: boolean;
+  startDate: string;
+  file: FileList | string;
+};
+export type correctFormFields = {
+  city: string;
+  userName: string;
+  email: string;
+  state: StateType;
+  maxPrice: string;
+  pets: boolean;
+  startDate: string;
+  file: string;
+};
+// export interface FormCardData {
+//   // id?: number;
+//   // name?: string;
+//   // email?: string;
+//   // state?: StateType;
+//   // pets?: boolean;
+//   // city?: string;
+//   // maxPrice?: string;
+//   // startDate?: string;
+//   file: string;
+// }
 export type StringBoolean = 'false' | 'true';
 export type StateType = 'single' | 'with family' | 'with friends' | '';
 

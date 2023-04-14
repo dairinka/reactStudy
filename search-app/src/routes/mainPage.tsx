@@ -1,6 +1,6 @@
 import { FC, useState, useEffect, useRef } from 'react';
 
-import { IServerDataResult, LocalStoradgeType } from '../types/type';
+import { IServerDataResult } from '../types/type';
 import { IServerDataResultPlus } from '../types/type';
 import TableCards from '../components/tableCards';
 import Search from '../components/search';
@@ -11,11 +11,7 @@ import { useAppSelector } from '../hook';
 
 const MainPage: FC = () => {
   const searchQuery = useAppSelector((state) => state.search.query);
-  // const initialQuery = localStorage.getItem(LocalStoradgeType.querySearch)
-  //   ? JSON.parse(localStorage.getItem(LocalStoradgeType.querySearch) as string)
-  //   : '';
   const [serverData, setServerData] = useState<IServerDataResult[]>([]);
-  //const [query, setQuery] = useState(initialQuery);
   const [isPending, setIsPending] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const serverOneCardDataRef = useRef<IServerDataResultPlus>();
@@ -28,11 +24,6 @@ const MainPage: FC = () => {
       setIsPending(false);
     });
   }, [searchQuery]);
-
-  // const handleChangeList = async (str: string) => {
-  //   const strNormalize = str.toLowerCase().trim();
-  //   setQuery(strNormalize);
-  // };
 
   const handleShowModal = async (bool: boolean, id: number) => {
     setIsPending(true);

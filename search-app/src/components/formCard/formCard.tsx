@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { FormCardData } from '../../types/type';
+import { FormFields } from '../../types/type';
 
 export interface IFormCardProps {
-  data: FormCardData;
+  data: FormFields;
 }
 
 const FormCard: FC<IFormCardProps> = ({ data }) => {
@@ -10,7 +10,7 @@ const FormCard: FC<IFormCardProps> = ({ data }) => {
     <div className="form-card">
       <p className="user-name card-line">
         <span className="first-word">Name: </span>
-        {data.name}
+        {data.userName}
       </p>
       <p className="user-email card-line">
         <span className="first-word">Email: </span>
@@ -38,7 +38,7 @@ const FormCard: FC<IFormCardProps> = ({ data }) => {
       </p>
       <div className="user-passport">
         <p className="first-word card-line">Passport:</p>
-        {data.file ? <img src={URL.createObjectURL(data.file)} style={{ height: 200 }} /> : null}
+        {data.file ? <img src={data.file as string} style={{ height: 200 }} /> : null}
       </div>
     </div>
   );
