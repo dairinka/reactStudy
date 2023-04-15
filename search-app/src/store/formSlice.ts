@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FormFields } from '../types/type';
+
 type FormState = {
   data: FormFields[];
   infoMessage: boolean;

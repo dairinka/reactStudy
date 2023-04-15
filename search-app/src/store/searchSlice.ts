@@ -1,13 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IServerDataResult, ModalData } from '../types/type';
 
 type SearchState = {
   value: string;
   query: string;
+  data: IServerDataResult[];
+  isModal: boolean;
+  modalData: ModalData;
 };
 
 const initialState: SearchState = {
   value: '',
   query: '',
+  data: [],
+  isModal: false,
+  modalData: {
+    id: '',
+    idFirstEpisode: '',
+    idLastEpisode: '',
+  },
 };
 
 const searchSlice = createSlice({
@@ -20,7 +31,17 @@ const searchSlice = createSlice({
     addSearchQuery(state, action: PayloadAction<string>) {
       state.query = action.payload;
     },
+    addServerData(state, action: PayloadAction<IServerDataResult[]>) {
+      state.data = action.payload;
+    },
+    isShowModal(state, action: PayloadAction<boolean>) {
+      state.isModal = action.payload;
+    },
+    getModalData(state, action: PayloadAction<ModalData>) {
+      state.modalData = action.payload;
+    },
   },
 });
-export const { addValue, addSearchQuery } = searchSlice.actions;
+export const { addValue, addSearchQuery, addServerData, isShowModal, getModalData } =
+  searchSlice.actions;
 export default searchSlice.reducer;

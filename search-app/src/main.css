@@ -351,7 +351,7 @@ body {
   padding: 5px;
 }
 
-.load {
+.load, .modal-load {
   position: absolute;
   top: 150px;
   left: 50%;
@@ -365,6 +365,14 @@ body {
   z-index: 5;
 }
 
+.modal-load {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
 .environment {
   position: fixed;
   z-index: 1;
@@ -372,7 +380,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .card-modal {

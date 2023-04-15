@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from './searchSlice';
 import formReducer from './formSlice';
+import { rickandmortyApi } from './rickandmortyApi';
 
 const store = configureStore({
   reducer: {
     search: searchReducer,
     form: formReducer,
+    [rickandmortyApi.reducerPath]: rickandmortyApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(rickandmortyApi.middleware),
 });
 export default store;
 

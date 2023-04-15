@@ -1,33 +1,34 @@
 import { FC } from 'react';
 import { IServerDataResult } from '../types/type';
+import { useAppSelector } from '../hook';
+import { useGetCharactersQuery } from '../store/rickandmortyApi';
 import Card from './card';
 
-interface ITableCards {
-  data: IServerDataResult[];
-  handleOnClick: (bool: boolean, id: number) => void;
-}
+const TableCards: FC = () => {
+  const searchQuery = useAppSelector((state) => state.search.query);
+  const { isLoading, isFetching, isError, data } = useGetCharactersQuery(searchQuery);
 
-const TableCards: FC<ITableCards> = ({ data, handleOnClick }) => {
+  if (isFetching || isLoading) {
+    return <div className="load">Progressing...</div>;
+  }
+
+  if (isError) {
+    return (
+      <div className="search-result">
+        <p id="amount-result">Not found. Try another query</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="search-result">
-        <p id="amount-result">
-          {data ? `Found ${data.length} characters` : 'Not found. Try another query'}
-        </p>
+        <p id="amount-result">Found {data!.length} characters</p>
       </div>
       <div className="content-wrapper">
         {data &&
           data.map((el: IServerDataResult) => {
-            return (
-              <div
-                className="click-wrapper"
-                key={el.id}
-                onClick={() => handleOnClick(true, el.id)}
-                data-id={el.id}
-              >
-                <Card data={el} />
-              </div>
-            );
+            return <Card key={el.id} data={el} />;
           })}
       </div>
     </>

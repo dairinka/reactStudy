@@ -55,8 +55,8 @@ export type StringBoolean = 'false' | 'true';
 export type StateType = 'single' | 'with family' | 'with friends' | '';
 
 export interface IServerData {
-  info?: IServerDataInfo;
-  results?: IServerDataResult[];
+  info: IServerDataInfo;
+  results: IServerDataResult[];
 }
 
 export interface IServerDataInfo {
@@ -103,3 +103,9 @@ export interface IServerDataResultPlus extends IServerDataResult {
   name_first_episode: string;
   name_last_episode: string;
 }
+
+export type ModalData = {
+  id: string;
+  idFirstEpisode: string;
+  idLastEpisode: string;
+};
