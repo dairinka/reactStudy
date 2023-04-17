@@ -1,36 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
+
+import store from '../../../store';
 import Form from '../form';
-import { ApartmentData } from '../../../types/type';
 
 describe('Form in a page', () => {
-  const fakeApartmentData: ApartmentData[] = [
-    {
-      id: 1,
-      name: 'Blue Dream',
-      city: 'Paris',
-      price: 100,
-      rates: '9',
-      url: '../img/blue_dream.png',
-      comfortable: ['2 single beds', 'kitchen'],
-      language: ['italian'],
-    },
-    {
-      id: 2,
-      name: 'The night siren',
-      city: 'London',
-      price: 350,
-      rates: '9.1',
-      url: '../img/night_siren.png',
-      comfortable: ['free wi-fi', 'washing machine'],
-      language: ['italian'],
-    },
-  ];
-  const handleTest = () => {};
-
   beforeEach(async () => {
-    render(<Form dataList={fakeApartmentData} showCard={handleTest} />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
   });
 
   it('check form structure on the page', () => {
@@ -48,14 +30,13 @@ describe('Form in a page', () => {
     const emailInput = document.getElementById('user-email') as HTMLInputElement;
     const upload = document.getElementById('upload-img') as HTMLInputElement;
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
-    const submitBtn = document.querySelector('.form-btn') as HTMLButtonElement;
     const inputDate = document.getElementById('user-from') as HTMLInputElement;
 
     expect(citySelect).toBeInTheDocument();
     expect(stateRadio).toBeInTheDocument();
 
-    await user.selectOptions(citySelect, 'London');
-    expect(screen.getByText(/London/)).toBeInTheDocument();
+    await user.selectOptions(citySelect, 'Sperlonga');
+    expect(screen.getByText(/Sperlonga/)).toBeInTheDocument();
 
     await user.click(stateRadio);
     expect(screen.getByText(/Single/)).toBeInTheDocument();
@@ -70,9 +51,6 @@ describe('Form in a page', () => {
 
     await user.upload(upload, file);
     expect(screen.getByText(/Upload/)).toBeInTheDocument();
-
-    await user.click(submitBtn);
-    expect(screen.getByText(/Thank you. Card was created/));
   });
 
   test('check error messages', async () => {
@@ -95,8 +73,8 @@ describe('Form in a page', () => {
     const submitBtn = document.querySelector('.form-btn') as HTMLButtonElement;
     const inputDate = document.getElementById('user-from') as HTMLInputElement;
 
-    await user.selectOptions(citySelect, 'London');
-    expect(screen.getByText(/London/)).toBeInTheDocument();
+    await user.selectOptions(citySelect, 'Rome');
+    expect(screen.getByText(/Rome/)).toBeInTheDocument();
 
     await user.click(stateRadio);
     expect(screen.getByText(/Single/)).toBeInTheDocument();
@@ -129,7 +107,7 @@ describe('Form in a page', () => {
     const submitBtn = document.querySelector('.form-btn') as HTMLButtonElement;
     const inputDate = document.getElementById('user-from') as HTMLInputElement;
 
-    await user.selectOptions(citySelect, 'London');
+    await user.selectOptions(citySelect, 'Gaeta');
 
     await user.click(stateRadio);
 

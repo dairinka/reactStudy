@@ -1,17 +1,18 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import FormCard from '../formCard';
-import { FormCardData } from '../../../types/type';
+import { FormFields } from '../../../types/type';
 
 describe('Form card in a page', () => {
-  const formCardData: FormCardData = {
-    name: 'Rony',
+  const formCardData: FormFields = {
+    userName: 'Rony',
     email: 'test@gmail.com',
     state: 'single',
     pets: false,
     city: 'Paris',
     maxPrice: 'twenty',
     startDate: '10.10.2023',
+    file: 'file',
   };
 
   beforeEach(async () => {

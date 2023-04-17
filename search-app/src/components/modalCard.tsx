@@ -43,7 +43,7 @@ const ModalCard: FC = () => {
                   className="card-modal__status-icon"
                   style={{ background: statusIcon[data.status] }}
                 ></span>
-                {data.status.toLocaleLowerCase() + '::' + data.gender.toLocaleLowerCase()}
+                {data.status.toLowerCase() + '::' + data.gender.toLowerCase()}
               </p>
               <p className="card-modal__type">
                 {data.species}

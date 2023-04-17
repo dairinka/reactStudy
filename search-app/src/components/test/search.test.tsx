@@ -1,17 +1,24 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
+import store from '../../store';
 import Search from '../search';
 
-const handleChangeList = (): void => {};
+describe('Search form', () => {
+  beforeEach(async () => {
+    render(
+      <Provider store={store}>
+        <Search />
+      </Provider>
+    );
+  });
+  test('displays the correct button', () => {
+    const linkElement = screen.getByText(/Search/i);
+    expect(linkElement).toBeVisible();
+  });
 
-it('displays the correct button', () => {
-  render(<Search changeList={handleChangeList} />);
-  const linkElement = screen.getByText(/Search/i);
-  expect(linkElement).toBeVisible();
-});
-
-it('displays search field', () => {
-  render(<Search changeList={handleChangeList} />);
-  const searchElement = document.querySelector('.search-input');
-  expect(searchElement).toBeVisible();
+  test('displays search field', () => {
+    const searchElement = document.querySelector('.search-input');
+    expect(searchElement).toBeVisible();
+  });
 });

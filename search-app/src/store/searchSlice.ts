@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IServerDataResult, ModalData } from '../types/type';
 
-type SearchState = {
+export type SearchState = {
   value: string;
   query: string;
   data: IServerDataResult[];

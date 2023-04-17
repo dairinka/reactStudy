@@ -1,5 +1,8 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import store from '../../store';
+
 import Card from '../card';
 import { IServerDataResult } from '../../types/type';
 
@@ -26,7 +29,11 @@ describe('Card in a page', () => {
   };
 
   beforeEach(async () => {
-    render(<Card data={fakeData} />);
+    render(
+      <Provider store={store}>
+        <Card data={fakeData} />
+      </Provider>
+    );
   });
 
   it('check card creating', () => {

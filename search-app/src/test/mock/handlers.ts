@@ -124,21 +124,35 @@ export const handlers = [
       })
     );
   }),
-  rest.get('https://rickandmortyapi.com/api/episode/8', (req, res, ctx) => {
+  rest.get('https://rickandmortyapi.com/api/episode', (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
-        id: 123,
-        name: 'Rick Potion #9',
-        air_date: '22.05.2019',
-        episode: 'S01E01',
-        characters: [
-          'https://rickandmortyapi.com/api/character/1',
-          'https://rickandmortyapi.com/api/character/2',
+        info: {
+          count: 51,
+          pages: 3,
+          next: 'https://rickandmortyapi.com/api/episode?page=2',
+          prev: null,
+        },
+        results: [
+          {
+            id: 1,
+            name: 'Pilot',
+            air_date: 'December 2, 2013',
+            episode: 'S01E01',
+            characters: [
+              'https://rickandmortyapi.com/api/character/1',
+              'https://rickandmortyapi.com/api/character/2',
+              //...
+            ],
+            url: 'https://rickandmortyapi.com/api/episode/1',
+            created: '2017-11-10T12:56:33.798Z',
+          },
         ],
-        url: 'https://episode8.com',
-        created: '20.05.2022',
       })
     );
+  }),
+  rest.get('https://rickandmortyapi.com/api/episode/8', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ name: 'Rick Potion #9' }));
   }),
 ];

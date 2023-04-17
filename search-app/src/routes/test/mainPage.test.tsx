@@ -1,9 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
+import store from '../../store';
 import MainPage from '../mainPage';
 
-test('check display correct data from server', async () => {
-  render(<MainPage />);
+test('mainPage', async () => {
+  render(
+    <Provider store={store}>
+      <MainPage />
+    </Provider>
+  );
   expect(await screen.findByText('Aloha')).toBeInTheDocument();
   expect(await screen.findByText('Testy')).toBeInTheDocument();
   expect(document.querySelectorAll('.card'))?.toHaveLength(2);

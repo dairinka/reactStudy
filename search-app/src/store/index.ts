@@ -9,7 +9,12 @@ const store = configureStore({
     form: formReducer,
     [rickandmortyApi.reducerPath]: rickandmortyApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(rickandmortyApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['form/makeFormMold'],
+      },
+    }).concat(rickandmortyApi.middleware),
 });
 export default store;
 
