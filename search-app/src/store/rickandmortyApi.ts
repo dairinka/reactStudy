@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IServerData } from 'types/type';
-import { IServerDataResult, IServerDataEpisode } from 'types/type';
+import { IServerData } from '../types/type';
+import { IServerDataResult, IServerDataEpisode } from '../types/type';
 
 export const rickandmortyApi = createApi({
   reducerPath: 'rickandmortyApi',
