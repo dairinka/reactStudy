@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { PagePathData } from 'types/type';
+import { NavLink, useLocation } from 'react-router-dom';
+import { PagePathData } from '../types/type';
 import Location from './location';
 
 interface IHeaderProps {
@@ -8,13 +8,9 @@ interface IHeaderProps {
 }
 
 const Header: FC<IHeaderProps> = ({ pathArray }) => {
-  const defineLocation = (): string => {
-    return window.location.pathname === '/'
-      ? pathArray[0].pageName.toUpperCase()
-      : window.location.pathname.slice(1).toUpperCase().replace(/_/, ' ');
-  };
+  const currentLocation = useLocation();
 
-  const [pageName, setPageName] = useState(defineLocation());
+  const [pageName, setPageName] = useState(currentLocation.pathname);
 
   const changePage = (currentPageName: string) => {
     const pageNameUpperCase = currentPageName.toUpperCase();
