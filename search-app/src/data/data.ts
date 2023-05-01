@@ -1,4 +1,4 @@
-import { ApartmentData } from 'types/type';
+import { ApartmentData } from '../types/type';
 
 const cardData: ApartmentData[] = [
   {

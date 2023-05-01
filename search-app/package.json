@@ -12,7 +12,7 @@
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "eslint . --ext .tsx --ext .ts",
-    "cypress": "cypress open",
+    "cypress": "cypress run",
     "cy:report": "npx nyc report --reporter=text",
     "cy:test": "start-server-and-test dev http-get://localhost:3000 cypress",
     "test:e2e": "npm run cy:test && npm run cy:report"

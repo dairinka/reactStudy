@@ -53,14 +53,14 @@ describe('Home page E2E', () => {
   it('should close modal card, when close button was clicked ', () => {
     cy.get('.card').first().click();
     cy.get('.card-modal').should('be.visible');
-    cy.get('.card-modal__close').click();
-    cy.get('.card-modal').should('not.be.visible');
+    cy.get('.card-modal__close').last().click();
+    cy.get('.card-modal').should('not.exist');
   });
 
   it('should close modal card, when black window was clicked ', () => {
     cy.get('.card').first().click();
     cy.get('.card-modal').should('be.visible');
-    cy.get('.environment').click();
-    cy.get('.card-modal').should('not.be.visible');
+    cy.get('.environment').last().click({ force: true });
+    cy.get('.card-modal').should('not.exist');
   });
 });
